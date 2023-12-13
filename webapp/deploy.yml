@@ -8,4 +8,3 @@
       image: httpd
       ports:
         - "80:80"
-     

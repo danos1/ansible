@@ -1,7 +1,15 @@
 ---
 - name: "apache instalation using docker"
   hosts: prod
+  become: true
+  vars:
+    ansible_sudo_pass: admin
   pre_tasks:
+  - name: install epel repo
+    package: name=epel-release state=present
+    when: ansible_distribution == "CentOS"
+  - name: install python-pip
+    yum: name=python-pip state=present update_cache=yes
   - name: install docker python
     pip: name=docker-py
   tasks:

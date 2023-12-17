@@ -1,6 +1,9 @@
 ---
 - name: "apache instalation using docker"
   hosts: prod
+  pre_tasks:
+  - name: install docker python
+    pip: name=docker-py
   tasks:
   - name: create apache container
     docker_container:

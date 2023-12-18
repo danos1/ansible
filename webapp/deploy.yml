@@ -2,8 +2,6 @@
 - name: "apache instalation using docker"
   hosts: prod
   become: true
-  vars:
-    ansible_sudo_pass: admin
   pre_tasks:
   - name: install epel repo
     package: name=epel-release state=present

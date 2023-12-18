@@ -11,7 +11,9 @@
   - name: install python-pip
     yum: name=python3-pip state=present update_cache=yes
   - name: install docker python
-    pip3: name=docker-py
+    pip: name=docker-py
+    vars: 
+      ansible_python_interpreter: /usr/bin/python3
   tasks:
   - name: create apache container
     docker_container:
@@ -19,3 +21,5 @@
       image: httpd
       ports:
         - "80:80"
+      vars: 
+        ansible_python_interpreter: /usr/bin/python3

@@ -20,13 +20,10 @@
     vars: 
       ansible_python_interpreter: /usr/bin/python3
   tasks:
-  - name: "Creation of a directory"
-    file:
-      path: "/var/www"
   - name: html file generation
     template:
       src: "templates/index.html.j2"
-      dest: "/var/www/index.html"
+      dest: "/home/admin/index.html"
   - name: create apache container
     docker_container:
       name: webapp
@@ -34,6 +31,6 @@
       ports:
         - "80:80"
       volumes: 
-        - /var/www:/usr/local/apache2/htdocs
+        - /home/admin:/usr/local/apache2/htdocs
     vars: 
       ansible_python_interpreter: /usr/bin/python3

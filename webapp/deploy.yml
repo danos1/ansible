@@ -21,16 +21,12 @@
     vars: 
       ansible_python_interpreter: /usr/bin/python3
   tasks:
-  - name: html file generation
-    template:
-      src: "templates/index.html.j2"
-      dest: "{{playbook_dir}}/{{inventory_hostname}}.html"
   - name: "Creation of a directory"
     file:
       path: "/var/www/html"
-  - name: "copying html file"
-    copy:
-      src: "{{playbook_dir}}/{{inventory_hostname}}.html"   
+  - name: html file generation
+    template:
+      src: "templates/index.html.j2"
       dest: "/var/www/html/index.html"
   - name: create apache container
     docker_container:

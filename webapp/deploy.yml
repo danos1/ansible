@@ -8,16 +8,38 @@
     when: ansible_distribution == "CentOS"
   - name: install python-pip
     yum: name=python3-pip state=present update_cache=yes
+  - name: install wget and git
+    yum:
+      name: {{item}}
+      state: present
+      when: ansible_distribution == "CentOS"
+     
+     loop:
+       - git
+       - wget      
   - name: install docker python
     pip: name=docker-py
     vars: 
       ansible_python_interpreter: /usr/bin/python3
   tasks:
+  - name: html file generation
+    template:
+      src: "templates/index.html.j2"
+      dest: "{{playbook_dir}}/{{inventory_hostname}}.html"
+  - name: "Creation of a directory"
+    file:
+      path: "/var/www/html"
+  - name: "copying html file"
+     copy:
+        src: "{{playbook_dir}}/{{inventory_hostname}}.html"   
+        dest: "/var/www/html/index.html"
   - name: create apache container
     docker_container:
       name: webapp
       image: httpd
       ports:
         - "80:80"
-      vars: 
-        ansible_python_interpreter: /usr/bin/python3
+      volumes: 
+        - /var/www/html:/usr/local/apache2/htdocs
+    vars: 
+      ansible_python_interpreter: /usr/bin/python3

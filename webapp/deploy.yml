@@ -12,8 +12,7 @@
     yum:
       name: {{item}}
       state: present
-      when: ansible_distribution == "CentOS"
-     
+      when: ansible_distribution == "CentOS"     
     loop:
       - git
       - wget      

@@ -14,9 +14,9 @@
       state: present
       when: ansible_distribution == "CentOS"
      
-     loop:
-       - git
-       - wget      
+    loop:
+      - git
+      - wget      
   - name: install docker python
     pip: name=docker-py
     vars: 

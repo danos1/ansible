@@ -10,7 +10,7 @@
     yum: name=python3-pip state=present update_cache=yes
   - name: install wget and git
     yum:
-      name: {{item}}
+      name: {{ item }}
       state: present
       when: ansible_distribution == "CentOS"     
     loop:

@@ -11,8 +11,7 @@
   - name: install wget and git
     yum:
       name: "{{ item }}"
-      state: present
-      when: ansible_distribution == "CentOS"     
+      state: present   
     loop:
       - git
       - wget      
@@ -23,11 +22,11 @@
   tasks:
   - name: "Creation of a directory"
     file:
-      path: "/var/www/html"
+      path: "/var/www"
   - name: html file generation
     template:
       src: "templates/index.html.j2"
-      dest: "/var/www/html/index.html"
+      dest: "/var/www/index.html"
   - name: create apache container
     docker_container:
       name: webapp
@@ -35,6 +34,6 @@
       ports:
         - "80:80"
       volumes: 
-        - /var/www/html:/usr/local/apache2/htdocs
+        - /var/www:/usr/local/apache2/htdocs
     vars: 
       ansible_python_interpreter: /usr/bin/python3

@@ -29,9 +29,9 @@
     file:
       path: "/var/www/html"
   - name: "copying html file"
-     copy:
-        src: "{{playbook_dir}}/{{inventory_hostname}}.html"   
-        dest: "/var/www/html/index.html"
+    copy:
+      src: "{{playbook_dir}}/{{inventory_hostname}}.html"   
+      dest: "/var/www/html/index.html"
   - name: create apache container
     docker_container:
       name: webapp
